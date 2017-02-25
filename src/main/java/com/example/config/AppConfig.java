@@ -1,0 +1,28 @@
+package com.example.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.jpa.JpaTransactionManager;
+
+import javax.persistence.EntityManagerFactory;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public Validator validator (){
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        return factory.getValidator();
+    }
+
+    @Bean
+    public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(emf);
+        return transactionManager;
+    }
+
+}
